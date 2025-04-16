@@ -9,17 +9,17 @@ export default function HowItWorks() {
     },
     {
       title: "Get Matched",
-      description: "We'll connect you with trusted helpers in your area who can assist.",
+      description: "We'll connect you with trusted Deeders in your area who can assist.",
       icon: "2",
     },
     {
-      title: "Approve Your Helper",
-      description: "Review helper profiles and select the right person for your needs.",
+      title: "Approve Your Deeder",
+      description: "Review Deeder profiles and select the right person for your needs.",
       icon: "3",
     },
     {
       title: "Get Help & Pay Securely",
-      description: "Your helper will arrive at the scheduled time. Pay securely through our platform.",
+      description: "Your Deeder will arrive at the scheduled time. Pay securely through our platform.",
       icon: "4",
     },
   ];
@@ -41,7 +41,8 @@ export default function HowItWorks() {
             {steps.map((step, index) => (
               <div key={index} className="relative">
                 <div className="flex flex-col items-center text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white text-2xl font-bold">
+                  {/* Add relative positioning and z-index to ensure circle appears above the line */}
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white text-2xl font-bold relative z-10">
                     {step.icon}
                   </div>
                   <h3 className="mt-6 text-xl font-medium text-gray-900 dark:text-white">
@@ -53,7 +54,7 @@ export default function HowItWorks() {
                 </div>
                 
                 {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-gray-200 dark:bg-gray-700" />
+                  <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-gray-200 dark:bg-gray-700 -z-10" />
                 )}
               </div>
             ))}
@@ -67,7 +68,7 @@ export default function HowItWorks() {
                 Ready to get started?
               </h3>
               <p className="mt-2 text-gray-500 dark:text-gray-400">
-                Find trusted helpers in your area today.
+                Find trusted Deeders in your area today.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -75,13 +76,13 @@ export default function HowItWorks() {
                 href="/services"
                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark"
               >
-                Find a Helper
+                Find a Deeder
               </a>
               <a
                 href="/become-helper"
-                className="inline-flex items-center justify-center px-5 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark"
               >
-                Become a Helper
+                Become a Deeder
               </a>
             </div>
           </div>

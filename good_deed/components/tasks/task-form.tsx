@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { DatePicker } from "@/components/ui/date-picker";
-import { TimePicker } from "@/components/ui/time-picker";
-import { createTask } from "@/app/actions";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { DatePicker } from "@/components/ui/date-picker"
+import { TimePicker } from "@/components/ui/time-picker"
+import { createTask } from "@/components/tasks/create-task"
 
 type ServiceCategory = {
   id: string;
@@ -28,17 +28,25 @@ export default function TaskForm({
   async function handleSubmit(formData: FormData) {
     setIsSubmitting(true);
     
-    // Add the date and time to the form data
-    if (date) {
-      formData.append("date", date.toISOString().split("T")[0]);
+    if (!date) {
+      alert("Please select a date");
+      setIsSubmitting(false);
+      return;
     }
     
-    if (time) {
-      formData.append("time", time);
+    if (!time) {
+      alert("Please select a time");
+      setIsSubmitting(false);
+      return;
     }
+    
+    // Add the date and time to the form data
+    formData.append("date", date.toISOString().split("T")[0]);
+    formData.append("time", time);
     
     try {
       await createTask(formData);
+      // Reset form or redirect
     } catch (error) {
       console.error("Error creating task:", error);
     } finally {
@@ -89,21 +97,19 @@ export default function TaskForm({
         <div className="space-y-2">
           <Label htmlFor="date">Date</Label>
           <DatePicker
-            id="date"
             selected={date}
             onSelect={setDate}
-            minDate={new Date()}
-            required
+            disabled={false}
+            className="w-full"
           />
         </div>
         
         <div className="space-y-2">
           <Label htmlFor="time">Time</Label>
           <TimePicker
-            id="time"
             value={time}
-            onChange={setTime}
-            required
+            onChange={(time) => setTime(time)}
+            disabled={isSubmitting}
           />
         </div>
       </div>

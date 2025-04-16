@@ -11,6 +11,16 @@ type ServiceCategory = {
   display_order: number;
 };
 
+// Map of service slugs to their corresponding image files
+const serviceImageMap: Record<string, string> = {
+  "companionship": "/companion.jpg",
+  "home-help": "/home_help.jpg",
+  "tech-help": "/tech_help.jpg",
+  "errands": "/errands.jpg",
+  // Add fallback for any other categories
+  "default": "/images/service-placeholder.jpg"
+};
+
 export default function ServiceCategories({ 
   categories 
 }: { 
@@ -37,13 +47,12 @@ export default function ServiceCategories({
                 className="group"
               >
                 <Card className="h-full flex flex-col overflow-hidden transition-all duration-200 hover:shadow-lg">
-                  <div className="flex-shrink-0 flex items-center justify-center h-48 bg-primary/5 dark:bg-primary/10">
+                  <div className="flex-shrink-0 h-48 relative">
                     <Image
-                      src={category.icon_url || `/images/services/${category.slug}.svg`}
+                      src={serviceImageMap[category.slug] || serviceImageMap.default}
                       alt={category.name}
-                      width={120}
-                      height={120}
-                      className="h-24 w-24 object-contain"
+                      fill
+                      className="object-cover"
                     />
                   </div>
                   <div className="flex-1 bg-white dark:bg-gray-800 p-6 flex flex-col justify-between">

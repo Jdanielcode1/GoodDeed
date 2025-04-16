@@ -2,6 +2,7 @@ import Hero from "@/components/home/hero";
 import ServiceCategories from "@/components/home/service-categories";
 import HowItWorks from "@/components/home/how-it-works";
 import Testimonials from "@/components/home/testimonials";
+import AgingSection from "@/components/home/aging-section";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function Home() {
@@ -13,19 +14,16 @@ export default async function Home() {
     .select('*')
     .order('display_order', { ascending: true });
   
-  // Fetch testimonials from Supabase
-  const { data: testimonials } = await supabase
-    .from('testimonials')
-    .select('*')
-    .eq('is_featured', true)
-    .limit(3);
-
+  // If you want to fetch testimonials from Supabase, you'll need to add the "type" field
+  // For now, we'll use the sample data in the component
+  
   return (
     <main className="flex-1 w-full flex flex-col gap-16">
       <Hero />
       <ServiceCategories categories={categories || []} />
+      <AgingSection />
       <HowItWorks />
-      <Testimonials testimonials={testimonials || []} />
+      <Testimonials />
     </main>
   );
 }
